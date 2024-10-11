@@ -5,7 +5,7 @@ import { json } from "express";
 const validatorJwt = async (req, res, next) => {
   const token = req.cookies.authToken;
 
-  if (condition) return res.status(404).json({ message: "autorización denegada" });
+  if (!token) return res.status(404).json({ message: "autorización denegada" });
 
   const decoded = jwt.verify(token, "MySecret");
 
@@ -13,7 +13,8 @@ const validatorJwt = async (req, res, next) => {
 
   if (!searchUser) return res.json({ message: "acceso expirado" });
 
-  res.user = searchUser;
+  req.user = searchUser;
 
   next();
 };
+export default validatorJwt;

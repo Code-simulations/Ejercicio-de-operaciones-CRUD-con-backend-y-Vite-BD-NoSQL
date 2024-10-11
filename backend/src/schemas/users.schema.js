@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
-
+// mongoose.use()
 const userModels = new mongoose.Schema({
-  names: { type: String, required: true },
-  emails: { type: String, required: true, unique: true },
-  passwords: { type: String, required: true },
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tasks" }],
 });
 
 const user = mongoose.model("Users", userModels);
