@@ -5,6 +5,7 @@ import color from "chalk";
 import cookiesParser from "cookie-parser";
 import { connect } from "./db/conecctions.js";
 import userRouter from "./routers/users.routes.js";
+import tasksRouter from "./routers/tasks.routes.js";
 const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
@@ -17,6 +18,7 @@ app.use(
 );
 app.use(cookiesParser());
 app.use(userRouter);
+app.use(tasksRouter);
 
 app.listen(4000, () => {
   try {

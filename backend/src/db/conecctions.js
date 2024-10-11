@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import color from "chalk";
-
+mongoose.set("strictPopulate", false);
 export const connect = async () => {
   try {
     const connections = await mongoose.connect("mongodb://localhost:27017/Practica");

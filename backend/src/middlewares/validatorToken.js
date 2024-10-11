@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import user from "../schemas/users.schema.js";
-import { json } from "express";
 
 const validatorJwt = async (req, res, next) => {
   const token = req.cookies.authToken;
@@ -9,7 +8,7 @@ const validatorJwt = async (req, res, next) => {
 
   const decoded = jwt.verify(token, "MySecret");
 
-  const searchUser = await user.findById(decoded.id);
+  const searchUser = await user.findById(decoded.id).populate("tasks");
 
   if (!searchUser) return res.json({ message: "acceso expirado" });
 
