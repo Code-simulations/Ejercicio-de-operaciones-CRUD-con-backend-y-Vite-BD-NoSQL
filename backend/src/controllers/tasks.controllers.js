@@ -66,3 +66,42 @@ export const deledTasks = async (req, res) => {
     console.log(color.blue("----------------------------------------------------------------------------------------------------"));
   }
 };
+
+export const getTask = async (req, res) => {
+  try {
+    const idUser = req.user._id;
+    const { id } = req.params;
+    const task = await tasks.find({ $and: [{ _id: id, creator: idUser }] }).populate({ path: "creator", select: "_id" });
+    if (task.length === 0) return res.status(400).json({ message: "no se a encontrado la tarea" });
+    return res.status(200).json(task);
+  } catch (error) {
+    console.log(color.blue("----------------------------------------------------------------------------------------------------"));
+    console.log(color.red("                                error en el controlador de getTask"));
+    console.log(color.blue("----------------------------------------------------------------------------------------------------"));
+    console.log();
+    console.log(error);
+    console.log();
+    console.log(color.blue("----------------------------------------------------------------------------------------------------"));
+  }
+};
+
+export const updateTask = async (req, res) => {
+  try {
+    const _id = req.user._id;
+    const { id } = req.params;
+    const { title, description, isCompleted } = req.body;
+    const task = await tasks.findById(id);
+    if (!task) return res.status(404).json({ message: "no hay tarea para eliminar " });
+    if (!task.creator.equals(_id)) return res.status(404).json({ message: "no estas autorizado para editar esta tareas" });
+    await tasks.findByIdAndUpdate(id, { title: title, description: description, isCompleted: isCompleted }, { new: true });
+    res.status(200).json({ message: "tarea actualizada con éxito" });
+  } catch (error) {
+    console.log(color.blue("----------------------------------------------------------------------------------------------------"));
+    console.log(color.red("                                error en el controlador de getTask"));
+    console.log(color.blue("----------------------------------------------------------------------------------------------------"));
+    console.log();
+    console.log(error);
+    console.log();
+    console.log(color.blue("----------------------------------------------------------------------------------------------------"));
+  }
+};

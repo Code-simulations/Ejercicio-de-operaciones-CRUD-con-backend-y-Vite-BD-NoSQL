@@ -1,0 +1,23 @@
+.cabecera {
+  background-color: rgb(104, 138, 250);
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.title-login {
+  font-family: "poppins", sans-serif;
+}
+.link-login {
+  margin-right: 100px;
+  text-decoration: none;
+  color: black;
+  font-family: "poppins", sans-serif;
+  font-weight: 700;
+}
+.logo {
+  height: 100px;
+  width: 100px;
+  margin-left: 50px;
+}
