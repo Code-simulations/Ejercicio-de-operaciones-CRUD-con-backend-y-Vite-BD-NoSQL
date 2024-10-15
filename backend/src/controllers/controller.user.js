@@ -43,8 +43,9 @@ export const login = async (req, res) => {
 
     res.cookie("authToken", token, {
       httpOnly: true,
-      secure: true,
-      maxAge: 60 * 60 * 24 * 7, // 1 week
+      secure: true, // Usa `true` solo si estás usando HTTPS en producción
+      sameSite: "None", // Necesario para solicitudes entre diferentes orígenes
+      maxAge: 60 * 60 * 24 * 7, // 1 semana
     });
     res.status(200).json({ message: "iniciando sesión" });
   } catch (error) {

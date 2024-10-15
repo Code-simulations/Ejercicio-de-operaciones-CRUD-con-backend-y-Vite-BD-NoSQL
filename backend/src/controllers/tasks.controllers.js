@@ -51,7 +51,7 @@ export const getAllTasks = async (req, res) => {
 export const deledTasks = async (req, res) => {
   try {
     const idUser = req.user._id;
-    const idTasks = req.params._id;
+    const idTasks = req.params.id;
     const searchTasks = await tasks.find({ $and: [{ _id: idTasks, creator: idUser }] }).exec();
     if (searchTasks.length === 0) return res.status(404).json({ message: "no hay tarea para eliminar " });
     await tasks.findByIdAndDelete(idTasks);
